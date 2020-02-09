@@ -40,7 +40,7 @@ function getFiberDescription(fiber) {
  */
 export function debug(msg, debugId, obj) {
 	if (DEBUG_ON) {
-		console.log(`# ${msg} ${debugId}`, obj);
+		console.log(`# ${msg} ${debugId}`, obj); // eslint-disable-line no-console
 	}
 }
 

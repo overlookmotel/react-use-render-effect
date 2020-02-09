@@ -1,7 +1,9 @@
+// Modules
+import invariant from 'tiny-invariant';
+
 // Imports
 import {fiberIsPatched, REGISTER_DISPOSER_SIGNAL} from './shared.js';
 import {getDebugId, debug, sendDebugSignal, printDebugSignal, DEBUG_SIGNAL} from './debug.js';
-import invariant from 'tiny-invariant';
 
 // Imports
 import __DEV__ from './dev.js';
@@ -44,7 +46,7 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 	let debugId, debugOnTarget;
 	if (__DEV__) {
 		debugId = getDebugId(fiber, parentDebugId);
-		debugOnTarget = (type, target) => sendDebugSignal(type, target, debugId, fiber)
+		debugOnTarget = (type, target) => sendDebugSignal(type, target, debugId, fiber);
 	}
 
 	if (__DEV__) debug('Patching fiber', debugId, fiber);
@@ -83,7 +85,8 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 		set(newParent) {
 			if (__DEV__ && newParent === DEBUG_SIGNAL) {
 				// Received debug signal - print debug message
-				return printDebugSignal(debugId, fiber);
+				printDebugSignal(debugId, fiber);
+				return;
 			}
 
 			if (newParent === REGISTER_DISPOSER_SIGNAL) {

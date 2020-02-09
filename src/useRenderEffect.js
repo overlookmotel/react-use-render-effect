@@ -31,7 +31,7 @@ export default function useRenderEffect(fn, deps) {
 	// Validate deps
 	if (__DEV__ && deps !== undefined && deps !== null && !Array.isArray(deps)) {
 		// Error message copied from what React's `useEffect()` error message
-		console.error(
+		console.error( // eslint-disable-line no-console
 			'useRenderEffect received a final argument that is not an array '
 			+ `(instead, received \`${typeof deps}\`). `
 			+ 'When specified, the final argument must be an array.'
@@ -43,7 +43,7 @@ export default function useRenderEffect(fn, deps) {
 
 	// Init disposer and register globally
 	const [state] = useState(() => {
-		let disposer = undefined;
+		let disposer;
 
 		function setDisposer(newDisposer) {
 			disposer = newDisposer;
@@ -71,7 +71,7 @@ export default function useRenderEffect(fn, deps) {
 		dispose();
 
 		// Execute effect function
-		let disposer = fn();
+		const disposer = fn();
 
 		// Validate disposer
 		invariant(
@@ -81,7 +81,7 @@ export default function useRenderEffect(fn, deps) {
 
 		// Record new disposer
 		setDisposer(disposer);
-	}, deps); // eslint-disable-line react-hooks/exhaustive-deps
+	}, deps);
 }
 
 /**
