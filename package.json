@@ -13,7 +13,12 @@
   "bugs": {
     "url": "https://github.com/overlookmotel/react-use-render-effect/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tiny-invariant": "^1.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
   "devDependencies": {
     "@overlookmotel/eslint-config": "^6.0.1",
     "@overlookmotel/eslint-config-jest": "^3.0.1",
@@ -30,11 +35,11 @@
     "jest-extended": "^0.11.5"
   },
   "keywords": [
-	"react",
-	"hook",
-	"render",
-	"effect",
-	"sync"
+    "react",
+    "hook",
+    "render",
+    "effect",
+    "sync"
   ],
   "scripts": {
     "test": "npm run lint && npm run test-main",
