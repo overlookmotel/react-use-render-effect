@@ -1,5 +1,7 @@
 'use strict';
 
+// TODO Make babel reference corejs polyfills rather then inlining
+
 module.exports = {
 	presets: [
 		'@babel/preset-env'
