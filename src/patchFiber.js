@@ -3,7 +3,7 @@ import invariant from 'tiny-invariant';
 
 // Imports
 import {fiberIsPatched, REGISTER_DISPOSER_SIGNAL} from './shared.js';
-import {getDebugId, debug, sendDebugSignal, printDebugSignal, DEBUG_SIGNAL} from './debug.js';
+import {createDebugId, debug, sendDebugSignal, printDebugSignal, DEBUG_SIGNAL} from './debug.js';
 
 // Constants
 const DISPOSE_SIGNAL = {};
@@ -42,7 +42,7 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 	// so it can print the message with it's own debug ID
 	let debugId, debugOnTarget;
 	if (__DEV__) {
-		debugId = getDebugId(fiber, parentDebugId);
+		debugId = createDebugId(fiber, parentDebugId);
 		debugOnTarget = (type, target) => sendDebugSignal(type, target, debugId, fiber);
 	}
 

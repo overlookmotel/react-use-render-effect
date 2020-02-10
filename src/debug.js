@@ -18,7 +18,7 @@ let counter = 0;
  * @param {string|null} parentId - Parent fiber's debug ID (`null`)
  * @returns {string} - Debug ID
  */
-export function getDebugId(fiber, parentDebugId) {
+export function createDebugId(fiber, parentDebugId) {
 	return `${parentDebugId ? `${parentDebugId}.` : ''}${getFiberDescription(fiber)}(${++counter})`;
 }
 
