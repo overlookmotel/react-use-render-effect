@@ -4,7 +4,6 @@ import invariant from 'tiny-invariant';
 
 // Imports
 import {getCurrentFiber, fiberIsPatched, REGISTER_DISPOSER_SIGNAL} from './shared.js';
-import __DEV__ from './dev.js';
 
 // Exports
 
@@ -33,8 +32,8 @@ export default function useRenderEffect(fn, deps) {
 		// Error message copied from what React's `useEffect()` error message
 		console.error( // eslint-disable-line no-console
 			'useRenderEffect received a final argument that is not an array '
-			+ `(instead, received \`${typeof deps}\`). `
-			+ 'When specified, the final argument must be an array.'
+				+ `(instead, received \`${typeof deps}\`). `
+				+ 'When specified, the final argument must be an array.'
 		);
 
 		// Set deps to empty array to avoid further warning from `useMemo()`

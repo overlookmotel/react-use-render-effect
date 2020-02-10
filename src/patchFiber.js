@@ -5,9 +5,6 @@ import invariant from 'tiny-invariant';
 import {fiberIsPatched, REGISTER_DISPOSER_SIGNAL} from './shared.js';
 import {getDebugId, debug, sendDebugSignal, printDebugSignal, DEBUG_SIGNAL} from './debug.js';
 
-// Imports
-import __DEV__ from './dev.js';
-
 // Constants
 const DISPOSE_SIGNAL = {};
 

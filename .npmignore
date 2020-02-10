@@ -8,3 +8,4 @@ coverage
 .gitattributes
 .travis.yml
 jest.config.js
+rollup.config.js
