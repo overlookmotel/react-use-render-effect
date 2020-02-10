@@ -38,7 +38,7 @@ function makeConfig(env, debug) {
 			commonjs({include: /node_modules/}),
 			replace({
 				'process.env.NODE_ENV': JSON.stringify(env),
-				'process.env.DEBUG': JSON.stringify(debug)
+				'process.env.DEBUG': JSON.stringify(debug ? 'use-render-effect' : undefined)
 			}),
 			isDev ? undefined : terser()
 		]

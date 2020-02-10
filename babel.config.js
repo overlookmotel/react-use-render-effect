@@ -9,7 +9,9 @@ module.exports = {
 		['@babel/plugin-transform-for-of', {assumeArray: true}],
 		'dev-expression',
 		['babel-plugin-transform-replace-expressions', {
-			replace: {__DEBUG__: 'process.env.DEBUG'}
+			replace: {
+				__DEBUG__: 'process.env.DEBUG && process.env.DEBUG.match(/[^,]\\s*(use-render-effect|\\*)\\s*[$,]/)'
+			}
 		}]
 	]
 };
