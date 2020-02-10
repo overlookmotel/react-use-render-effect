@@ -1,10 +1,6 @@
 // Imports
 import {fiberIsPatched} from './shared.js';
 
-// Constants
-const DEBUG_ON = false;
-// const DEBUG_ON = true;
-
 // Exports
 
 export const DEBUG_SIGNAL = {type: null, debugId: null, fiber: null};
@@ -39,9 +35,7 @@ function getFiberDescription(fiber) {
  * @returns {undefined}
  */
 export function debug(msg, debugId, obj) {
-	if (DEBUG_ON) {
-		console.log(`# ${msg} ${debugId}`, obj); // eslint-disable-line no-console
-	}
+	console.log(`# ${msg} ${debugId}`, obj); // eslint-disable-line no-console
 }
 
 /**

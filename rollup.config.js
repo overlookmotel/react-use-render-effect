@@ -14,11 +14,11 @@ const globals = {react: 'React'},
 // Exports
 
 module.exports = [
-	makeConfig('production'),
-	makeConfig('development')
+	makeConfig('production', false),
+	makeConfig('development', false)
 ];
 
-function makeConfig(env) {
+function makeConfig(env, debug) {
 	const isDev = env === 'development';
 
 	return {
@@ -37,7 +37,8 @@ function makeConfig(env) {
 			nodeResolve(),
 			commonjs({include: /node_modules/}),
 			replace({
-				'process.env.NODE_ENV': JSON.stringify(env)
+				'process.env.NODE_ENV': JSON.stringify(env),
+				'process.env.DEBUG': JSON.stringify(debug)
 			}),
 			isDev ? undefined : terser()
 		]

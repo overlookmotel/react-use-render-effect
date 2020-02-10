@@ -41,12 +41,12 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 	// Get debug ID for this fiber and define function to send debug message to target fiber,
 	// so it can print the message with it's own debug ID
 	let debugId, debugOnTarget;
-	if (__DEV__) {
+	if (__DEBUG__) {
 		debugId = createDebugId(fiber, parentDebugId);
 		debugOnTarget = (type, target) => sendDebugSignal(type, target, debugId, fiber);
 	}
 
-	if (__DEV__) debug('Patching fiber', debugId, fiber);
+	if (__DEBUG__) debug('Patching fiber', debugId, fiber);
 
 	// Local vars to contain fiber's `return`, `child` + `sibling` props
 	let {return: parent, child, sibling} = fiber;
@@ -56,7 +56,7 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 	 */
 	const disposers = [];
 	function dispose() {
-		if (__DEV__) debug('Disposing', debugId, fiber);
+		if (__DEBUG__) debug('Disposing', debugId, fiber);
 
 		// Run disposers
 		for (const disposer of disposers) {
@@ -80,7 +80,7 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 	Object.defineProperty(fiber, 'return', {
 		get() { return parent; },
 		set(newParent) {
-			if (__DEV__ && newParent === DEBUG_SIGNAL) {
+			if (__DEBUG__ && newParent === DEBUG_SIGNAL) {
 				// Received debug signal - print debug message
 				printDebugSignal(debugId, fiber);
 				return;
@@ -89,7 +89,7 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 			if (newParent === REGISTER_DISPOSER_SIGNAL) {
 				// Received signal to register disposer.
 				// Add to disposers array and exit - not a real attempt to set parent.
-				if (__DEV__) debug('Received disposer', debugId, REGISTER_DISPOSER_SIGNAL.disposer);
+				if (__DEBUG__) debug('Received disposer', debugId, REGISTER_DISPOSER_SIGNAL.disposer);
 				disposers.push(REGISTER_DISPOSER_SIGNAL.disposer);
 				return;
 			}
@@ -97,12 +97,13 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 			if (newParent === DISPOSE_SIGNAL) {
 				// Received signal to dispose.
 				// Dispose and exit - not a real attempt to set parent.
+				if (__DEBUG__) debug('Received dispose signal', debugId);
 				dispose();
 				if (sibling) disposeFiber(sibling);
 				return;
 			}
 
-			if (__DEV__ && newParent !== parent) {
+			if (__DEBUG__ && newParent !== parent) {
 				debugOnTarget('Detached child from', parent);
 				debugOnTarget('Attached child to', newParent);
 			}
@@ -121,7 +122,7 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 		set(newChild) {
 			child = newChild;
 			patchFiberIfNotPatched(child, debugId);
-			if (__DEV__) debugOnTarget('Set child', child);
+			if (__DEBUG__) debugOnTarget('Set child', child);
 		}
 	});
 
@@ -130,7 +131,7 @@ export default function patchFiber(fiber, isRoot, parentDebugId) {
 		set(newSibling) {
 			sibling = newSibling;
 			if (!isRoot) patchFiberIfNotPatched(sibling, parentDebugId);
-			if (__DEV__) debugOnTarget('Set sibling', child);
+			if (__DEBUG__) debugOnTarget('Set sibling', child);
 		}
 	});
 

@@ -5,7 +5,8 @@ module.exports = {
 		'@overlookmotel/eslint-config-react'
 	],
 	globals: {
-		__DEV__: true
+		__DEV__: true,
+		__DEBUG__: true
 	},
 	overrides: [{
 		files: './.eslintrc.js',
