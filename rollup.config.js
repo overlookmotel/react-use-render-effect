@@ -1,9 +1,11 @@
+'use strict';
+
 // Modules
-import nodeResolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import babel from 'rollup-plugin-babel';
-import {terser} from 'rollup-plugin-terser';
-import replace from 'rollup-plugin-replace';
+const nodeResolve = require('rollup-plugin-node-resolve'),
+	commonjs = require('rollup-plugin-commonjs'),
+	babel = require('rollup-plugin-babel'),
+	{terser} = require('rollup-plugin-terser'),
+	replace = require('rollup-plugin-replace');
 
 // Constants
 const globals = {react: 'React'},
@@ -11,7 +13,7 @@ const globals = {react: 'React'},
 
 // Exports
 
-export default [
+module.exports = [
 	makeConfig('production'),
 	makeConfig('development')
 ];
