@@ -18,6 +18,8 @@ const pathJoin = require('path').join,
 // To create debug builds, run `DEBUG=use-render-effect rollup`
 const debug = !!process.env.DEBUG && /(^|,)\s*(use-render-effect|\*)\s*($|,)/.test(process.env.DEBUG);
 
+const globals = {react: 'React'};
+
 // Build configs
 module.exports = [
 	makeConfig('cjs', 'production', debug),
@@ -27,8 +29,6 @@ module.exports = [
 	makeConfig('esm', 'production', debug),
 	makeConfig('esm', 'development', debug)
 ];
-
-const globals = {react: 'React'};
 
 function makeConfig(format, env, debug) { // eslint-disable-line no-shadow
 	const isProduction = env === 'production',
