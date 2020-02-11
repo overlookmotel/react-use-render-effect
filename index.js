@@ -9,7 +9,7 @@
 // Exports
 
 if (process.env.NODE_ENV === 'production') {
-	module.exports = require('./dist/cjs/use-render-effect.min.js');
+	module.exports = require('./dist/cjs/react-use-render-effect.min.js');
 } else {
-	module.exports = require('./dist/cjs/use-render-effect.js');
+	module.exports = require('./dist/cjs/react-use-render-effect.js');
 }

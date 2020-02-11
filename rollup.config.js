@@ -38,7 +38,7 @@ function makeConfig(format, env, debug) { // eslint-disable-line no-shadow
 	return {
 		input: 'src/index.js',
 		output: {
-			file: `dist/${format}/use-render-effect${isProduction ? '.min' : ''}.js`,
+			file: `dist/${format}/react-use-render-effect${isProduction ? '.min' : ''}.js`,
 			name: 'ReactUseRenderEffect',
 			format,
 			// Include all external modules except React in UMD build,
