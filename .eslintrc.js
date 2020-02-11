@@ -16,6 +16,14 @@ module.exports = {
 			extends: [
 				'@overlookmotel/eslint-config-node'
 			]
+		},
+		{
+			// index.js references files in dist folder which only exist after build
+			files: ['./index.js'],
+			rules: {
+				'node/no-missing-require': 'off',
+				'import/no-unresolved': 'off'
+			}
 		}
 	]
 };
