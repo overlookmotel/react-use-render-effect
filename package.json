@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "description": "React hook to perform effects in render phase",
   "main": "index.js",
+  "module": "dist/esm/use-render-effect.js",
+  "sideEffects": false,
   "author": {
     "name": "Overlook Motel"
   },
@@ -14,6 +16,7 @@
     "url": "https://github.com/overlookmotel/react-use-render-effect/issues"
   },
   "dependencies": {
+    "@babel/runtime": "^7.8.4",
     "tiny-invariant": "^1.1.0"
   },
   "peerDependencies": {
@@ -22,6 +25,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/plugin-transform-for-of": "^7.8.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "@overlookmotel/eslint-config": "^6.0.1",
@@ -61,15 +65,15 @@
     "sync"
   ],
   "scripts": {
-    "build": "rm -rf ./dist ./lib && rollup -c",
+    "build": "rm -rf ./dist && rollup -c",
     "prepublishOnly": "npm run build",
     "test": "npm run lint && npm run test-main",
     "lint": "eslint '*.js' '.*.js' '**/*.js' '**/.*.js'",
     "lint-fix": "eslint '*.js' '.*.js' '**/*.js' '**/.*.js' --fix",
-    "test-main": "cross-env NODE_ENV=production jest",
+    "test-main": "jest",
     "cover": "npm run cover-main && rm -rf coverage",
     "coveralls": "npm run cover-main && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
-    "cover-main": "cross-env COVERAGE=true NODE_ENV=production jest --coverage",
+    "cover-main": "cross-env COVERAGE=true jest --coverage",
     "ci": "if [ $COVERAGE ]; then npm run coveralls; else npm test; fi"
   },
   "engines": {

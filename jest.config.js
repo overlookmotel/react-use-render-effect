@@ -1,3 +1,8 @@
+/* --------------------
+ * react-use-render-effect module
+ * Jest config
+ * ------------------*/
+
 'use strict';
 
 module.exports = {

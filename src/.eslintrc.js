@@ -1,3 +1,8 @@
+/* --------------------
+ * react-use-render-effect module
+ * ESLint config
+ * ------------------*/
+
 'use strict';
 
 module.exports = {
