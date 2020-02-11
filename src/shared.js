@@ -1,3 +1,8 @@
+/* --------------------
+ * react-use-render-effect module
+ * Functions + constants shared between `useRenderEffect` and `withTracking`
+ * ------------------*/
+
 // Modules
 import React from 'react';
 

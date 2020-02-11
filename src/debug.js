@@ -1,3 +1,9 @@
+/* --------------------
+ * react-use-render-effect module
+ * Debug functions
+ * This is tree-shaken out in builds unless debug mode enabled
+ * ------------------*/
+
 // Imports
 import {fiberIsPatched} from './shared.js';
 

@@ -1,3 +1,8 @@
+/* --------------------
+ * react-use-render-effect module
+ * `withTracking` function
+ * ------------------*/
+
 // Modules
 import invariant from 'tiny-invariant';
 

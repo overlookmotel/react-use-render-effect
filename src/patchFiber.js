@@ -1,3 +1,8 @@
+/* --------------------
+ * react-use-render-effect module
+ * Patch fiber
+ * ------------------*/
+
 // Modules
 import invariant from 'tiny-invariant';
 

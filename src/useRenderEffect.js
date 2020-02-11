@@ -1,3 +1,8 @@
+/* --------------------
+ * react-use-render-effect module
+ * `useRenderEffect` function
+ * ------------------*/
+
 // Modules
 import {useState, useMemo} from 'react';
 import invariant from 'tiny-invariant';
