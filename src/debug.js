@@ -9,7 +9,7 @@ import {fiberIsPatched} from './shared.js';
 
 // Exports
 
-export const DEBUG_SIGNAL = {type: null, debugId: null, fiber: null};
+export const DEBUG_SIGNAL = {debugId: ''};
 
 let counter = 0;
 
@@ -36,51 +36,45 @@ function getFiberDescription(fiber) {
 }
 
 /**
+ * Log message to console including debugId of caller.
+ * @param {string} debugId - Debug ID of fiber logging this debug message
+ * @param {string} msg - Debug message
+ * @param {...any} args - Additional arguments to pass to `console.log`
+ * @returns {undefined}
+ */
+export function debugFiber(debugId, msg, ...args) {
+	console.log(`${msg} ${debugId}`, ...args); // eslint-disable-line no-console
+}
+
+/**
  * Log message to console.
- * @param {...any} args - Arguments
+ * @param {string} debugId - Debug ID of fiber logging this debug message
+ * @param {string} propName - Name of property being set
+ * @param {Object} oldFiber - Previous value of property
+ * @param {Object} newFiber - New value of property
  * @returns {undefined}
  */
-export function debug(msg, debugId, obj) {
-	console.log(`# ${msg} ${debugId}`, obj); // eslint-disable-line no-console
+export function debugFiberSet(debugId, propName, oldFiber, newFiber) {
+	debugFiber(
+		debugId,
+		`Set ${propName} on`,
+		`: was ${getDebugId(oldFiber)}, now ${getDebugId(newFiber)}`,
+		{oldFiber, newFiber}
+	);
 }
 
 /**
- * Send debug signal to target fiber.
- * The target will then add it's own debug ID to the message and log it.
- * Signal is sent via target's `return` setter.
- * @param {string} type - Event description
- * @param {Object} target - Target fiber
- * @param {string} debugId - Sender's debug ID
- * @param {Object} fiber - Sender fiber
- * @returns {undefined}
+ * Get debug ID of a fiber.
+ * Works by sending debug signal to the fiber.
+ * The fiber will add its debug ID to the signal so it can be read back.
+ * Signal is sent via fiber's `return` setter.
+ * @param {Object} fiber - Fiber
+ * @returns {string} - Debug ID
  */
-export function sendDebugSignal(type, target, debugId, fiber) {
-	if (!target) {
-		printDebugMessage(type, `[${target}]`, target, debugId, fiber);
-		return;
-	}
+function getDebugId(fiber) {
+	if (!fiber) return `[${fiber}]`;
+	if (!fiberIsPatched(fiber)) return '[unpatched]';
 
-	if (!fiberIsPatched(target)) {
-		printDebugMessage(type, '[unpatched]', target, debugId, fiber);
-		return;
-	}
-
-	DEBUG_SIGNAL.type = type;
-	DEBUG_SIGNAL.debugId = debugId;
-	DEBUG_SIGNAL.fiber = fiber;
-	target.return = DEBUG_SIGNAL;
-}
-
-/**
- * Called by target fiber when it receives a debug signal.
- * Logs the message. It gets details of the sender direct from `DEBUG_SIGNAL`.
- * @param {string} debugId - Debug ID
- * @param {Object} fiber - Target fiber
- */
-export function printDebugSignal(debugId, fiber) {
-	printDebugMessage(DEBUG_SIGNAL.type, debugId, fiber, DEBUG_SIGNAL.debugId, DEBUG_SIGNAL.fiber);
-}
-
-function printDebugMessage(type, debugId, fiber, senderDebugId, senderFiber) {
-	debug(`${type} ${debugId}:`, senderDebugId, {receiver: fiber, sender: senderFiber});
+	fiber.return = DEBUG_SIGNAL;
+	return DEBUG_SIGNAL.debugId;
 }
