@@ -3,18 +3,23 @@
  * Tests
  * ------------------*/
 
-'use strict';
-
 // Modules
-const useRenderEffect = require('../index');
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
+import {useRenderEffect, withTracking} from 'react-use-render-effect';
 
 // Init
-require('./support');
+import './support/index.js';
 
 // Tests
 
-describe('tests', () => {
-	it.skip('all', () => { // eslint-disable-line jest/no-disabled-tests
-		expect(useRenderEffect).not.toBeUndefined();
+describe('useRenderEffect', () => {
+	it('is a function', () => {
+		expect(useRenderEffect).toBeFunction();
+	});
+});
+
+describe('withTracking', () => {
+	it('is a function', () => {
+		expect(withTracking).toBeFunction();
 	});
 });
