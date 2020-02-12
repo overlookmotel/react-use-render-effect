@@ -4,7 +4,7 @@
  * ------------------*/
 
 // Modules
-import {useState, useMemo} from 'react';
+import {useRef, useMemo} from 'react';
 import invariant from 'tiny-invariant';
 
 // Imports
@@ -46,7 +46,7 @@ export default function useRenderEffect(fn, deps) {
 	}
 
 	// Init disposer and register globally
-	const [state] = useState(() => {
+	const state = useConstant(() => {
 		let disposer;
 
 		function setDisposer(newDisposer) {
@@ -105,4 +105,23 @@ function registerDisposer(disposer) {
 		REGISTER_DISPOSER_SIGNAL.disposer = disposer;
 		fiber.return = REGISTER_DISPOSER_SIGNAL;
 	}
+}
+
+/**
+ * Hook to create a permanently memoized value.
+ * Unlike `useMemo(fn, [])`, it will never have it's cache discarded.
+ * Same as `use-constant` npm module, but slightly more performant,
+ * as we know value will always be truthy.
+ * @param {Function} factory - Function to create value
+ * @returns {*} - Memoized value
+ */
+function useConstant(factory) {
+	const ref = useRef();
+
+	let state = ref.current;
+	if (!state) {
+		state = factory();
+		ref.current = state;
+	}
+	return state;
 }
