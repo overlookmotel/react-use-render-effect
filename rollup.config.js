@@ -7,11 +7,11 @@
 
 // Modules
 const pathJoin = require('path').join,
-	nodeResolve = require('rollup-plugin-node-resolve'),
-	commonjs = require('rollup-plugin-commonjs'),
+	nodeResolve = require('@rollup/plugin-node-resolve'),
+	commonjs = require('@rollup/plugin-commonjs'),
 	babel = require('rollup-plugin-babel'),
 	{terser} = require('rollup-plugin-terser'),
-	replace = require('rollup-plugin-replace');
+	replace = require('@rollup/plugin-replace');
 
 // Exports
 
