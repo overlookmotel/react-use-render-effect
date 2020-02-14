@@ -28,7 +28,7 @@ module.exports = api => ({
 		// Replace `__DEBUG__` with expression to test `process.env.DEBUG`
 		['babel-plugin-transform-replace-expressions', {
 			replace: {
-				__DEBUG__: '!!process.env.DEBUG && /(^|,)\\s*(use-render-effect|\\*)\\s*($|,)/.test(process.env.DEBUG)'
+				__DEBUG__: '!!process.env.DEBUG && /(^|,)\\s*(react-use-render-effect|\\*)\\s*($|,)/.test(process.env.DEBUG)'
 			}
 		}]
 	]

@@ -15,8 +15,9 @@ const pathJoin = require('path').join,
 
 // Exports
 
-// To create debug builds, run `DEBUG=use-render-effect rollup`
-const debug = !!process.env.DEBUG && /(^|,)\s*(use-render-effect|\*)\s*($|,)/.test(process.env.DEBUG);
+// To create debug builds, run `DEBUG=react-use-render-effect rollup`
+const debug = !!process.env.DEBUG
+	&& /(^|,)\s*(react-use-render-effect|\*)\s*($|,)/.test(process.env.DEBUG);
 
 const globals = {react: 'React'};
 
@@ -63,7 +64,7 @@ function makeConfig(format, env, debug) { // eslint-disable-line no-shadow
 				// Set NODE_ENV to strip out __DEV__ code-fenced code in production builds
 				'process.env.NODE_ENV': JSON.stringify(env),
 				// Strip out all __DEBUG__ code-fenced code if not in debug mode
-				'process.env.DEBUG': JSON.stringify(debug ? 'use-render-effect' : undefined)
+				'process.env.DEBUG': JSON.stringify(debug ? 'react-use-render-effect' : undefined)
 			}),
 			isProduction ? terser() : undefined
 		]
