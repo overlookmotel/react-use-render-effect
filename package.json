@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "React hook to perform effects in render phase",
   "main": "index.js",
-  "module": "dist/esm/use-render-effect.js",
+  "module": "dist/esm/react-use-render-effect.js",
   "sideEffects": false,
   "author": {
     "name": "Overlook Motel"
