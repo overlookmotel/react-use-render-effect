@@ -15,9 +15,8 @@ const pathJoin = require('path').join,
 
 // Exports
 
-// To create debug builds, run `DEBUG=react-use-render-effect rollup`
-const debug = !!process.env.DEBUG
-	&& /(^|,)\s*(react-use-render-effect|\*)\s*($|,)/.test(process.env.DEBUG);
+// To create debug builds, run `BUILD_DEBUG=1 rollup`
+const debug = !!process.env.BUILD_DEBUG;
 
 const globals = {react: 'React'};
 
