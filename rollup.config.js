@@ -15,22 +15,24 @@ const pathJoin = require('path').join,
 
 // Exports
 
-// To create debug builds, run `BUILD_DEBUG=1 rollup`
-const debug = !!process.env.BUILD_DEBUG;
-
 const globals = {react: 'React'};
 
-// Build configs
-module.exports = [
-	makeConfig('cjs', 'production', debug),
-	makeConfig('cjs', 'development', debug),
-	makeConfig('umd', 'production', debug),
-	makeConfig('umd', 'development', debug),
-	makeConfig('esm', 'production', debug),
-	makeConfig('esm', 'development', debug)
-];
+// Read debug flag
+// Use `BUILD_DEBUG` for debug builds e.g. `BUILD_DEBUG=1 npm run build`
+const debug = !!process.env.BUILD_DEBUG;
 
-function makeConfig(format, env, debug) { // eslint-disable-line no-shadow
+// Get build formats
+// Use `BUILD_ENV` to build only specific formats
+// e.g. `BUILD_ENV=cjs npm run build` or `BUILD_ENV=cjs,esm npm run build`
+const formats = getFormats(['cjs', 'esm', 'umd']);
+
+// Create build configs
+module.exports = formats.flatMap(env => [
+	createConfig(env, 'production', debug),
+	createConfig(env, 'development', debug)
+]);
+
+function createConfig(format, env, debug) { // eslint-disable-line no-shadow
 	const isProduction = env === 'production',
 		isUmd = format === 'umd',
 		isEsm = format === 'esm';
@@ -72,4 +74,23 @@ function makeConfig(format, env, debug) { // eslint-disable-line no-shadow
 
 function isExternalModule(moduleId) {
 	return !moduleId.startsWith('.') && !moduleId.startsWith(pathJoin(__dirname, 'src'));
+}
+
+function getFormats(allFormats) {
+	const formatsStr = process.env.BUILD_ENV;
+
+	// Default = all formats
+	if (!formatsStr) return allFormats;
+
+	// Parse list of formats
+	// eslint-disable-next-line no-shadow
+	const formats = formatsStr.split(',').map(format => format.toLowerCase());
+	const invalidFormat = formats.find(format => format !== 'all' && !allFormats.includes(format));
+	if (invalidFormat != null) {
+		throw new Error(`Unrecognised BUILD_ENV format '${invalidFormat}' - supported formats are ${allFormats.map(format => `'${format}'`).join(', ')} or 'all'`);
+	}
+
+	if (formats.includes('all')) return allFormats;
+
+	return formats;
 }
