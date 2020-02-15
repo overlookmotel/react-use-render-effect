@@ -5,6 +5,8 @@
 
 'use strict';
 
+// Exports
+
 module.exports = {
 	testEnvironment: 'node',
 	coverageDirectory: 'coverage',
