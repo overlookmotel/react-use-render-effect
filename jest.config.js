@@ -19,8 +19,11 @@ module.exports = {
 };
 
 function resolvePath() {
-	const testEnv = process.env.TEST_ENV;
+	const testEnv = (process.env.TEST_ENV || '').toLowerCase();
+
+	if (!testEnv) return '<rootDir>/src/index.js';
 	if (testEnv === 'cjs') return '<rootDir>/index.js';
 	if (testEnv === 'umd') return '<rootDir>/dist/umd/react-use-render-effect.js';
-	return '<rootDir>/src/index.js';
+
+	throw new Error(`Invalid TEST_ENV '${testEnv}' - valid options are 'cjs', 'umd' or undefined`);
 }
