@@ -10,14 +10,7 @@
 module.exports = {
 	testEnvironment: 'node',
 	coverageDirectory: 'coverage',
-	collectCoverageFrom: [
-		'**/*.js',
-		'!.**',
-		'!**/.**',
-		'!**/node_modules/**',
-		'!test/**',
-		'!jest.config.js'
-	],
+	collectCoverageFrom: ['src/**/*.js'],
 	setupFilesAfterEnv: ['jest-extended'],
 	// Resolve `import from 'react-use-render-effect'` to src or build, depending on env variable
 	moduleNameMapper: {
