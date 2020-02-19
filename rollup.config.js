@@ -27,10 +27,15 @@ const debug = !!process.env.BUILD_DEBUG;
 const formats = getFormats(['cjs', 'esm', 'umd']);
 
 // Create build configs
-module.exports = formats.flatMap(env => [
-	createConfig(env, 'production', debug),
-	createConfig(env, 'development', debug)
-]);
+const configs = [];
+for (const format of formats) {
+	configs.push(
+		createConfig(format, 'production', debug),
+		createConfig(format, 'development', debug)
+	);
+}
+
+module.exports = configs;
 
 function createConfig(format, env, debug) { // eslint-disable-line no-shadow
 	const isProduction = env === 'production',
