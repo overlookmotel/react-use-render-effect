@@ -17,6 +17,7 @@ module.exports = {
 				// Compile for current Node version
 				targets: {node: 'current'}
 			}
-		]
+		],
+		'@babel/react'
 	]
 };
