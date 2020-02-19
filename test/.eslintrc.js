@@ -12,7 +12,7 @@ module.exports = {
 		'@overlookmotel/eslint-config-node'
 	],
 	overrides: [{
-		files: ['!.eslintrc.js'],
+		files: ['!.*'],
 		extends: [
 			'@overlookmotel/eslint-config-jest',
 			'@overlookmotel/eslint-config-react'

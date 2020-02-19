@@ -16,7 +16,7 @@ module.exports = {
 		__DEBUG__: true
 	},
 	overrides: [{
-		files: './.eslintrc.js',
+		files: '.*',
 		extends: [
 			'@overlookmotel/eslint-config-node'
 		]
